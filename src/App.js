@@ -17,7 +17,7 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault()
     if (newItem === '') {
-      alert('enter a valid todo')
+      alert('Enter a valid todo')
       return
     }
 
@@ -46,35 +46,37 @@ function App() {
 
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className='h-screen w-screen p-4 bg-gray-400'>
+      <form className='flex justify-between' onSubmit={handleSubmit}>
+        <div className='bg-slate-100 max-w[500px] w-full m-auto rounded-md shadow-xl p-4'>
           <label htmlFor='item'> New Item</label>
-          <input type="text"
+          <input className='border p-2 w-full text-xl' type="text"
             id='item'
             value={newItem}
             onChange={e => setNewItem(e.target.value)} />
         </div>
-        <button>Add</button>
+        <button className='border p-4 ml-2 bg-pink-600 text-slate-100 rounded-md'>Add</button>
       </form>
-      <h1>Todo List</h1>
-      <ul>
+      <h1 className='text-3xl font-bold text-center text-gray-800 p-2'>Todo List</h1>
+      <ul className='text-center '>
         {todos.length === 0 && 'No todos'}
         {todos.map(todo => {
           return (
-            <li key={todo.id}>
-              <label htmlFor="">
+            <li key={todo.id} className='flex justify-between bg-slate-200 p-4 capitalize rounded-md mb-4'>
+              <label htmlFor="" className={todo.completed ? 'ml-2 mt-1 cursor-pointer line-through ' : 'ml-2 mt-1 cursor-pointer'}>
                 <input type="checkbox"
                   checked={todo.completed}
                   onChange={e => toggleTodo(todo.id, e.target.checked)} />
                 {todo.title}
               </label>
-              <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+              <button
+                className='cursor-pointer flex items-center border ml-2 p-1 bg-red-600 text-slate-100 rounded-md'
+                onClick={() => deleteTodo(todo.id)}>Delete</button>
             </li>
           )
         })}
       </ul>
-    </>
+    </div>
   );
 }
 
